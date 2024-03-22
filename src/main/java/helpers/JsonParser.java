@@ -10,7 +10,8 @@ public class JsonParser {
         data = data.replace("}", "");
         String[] key = data.split(":");
         String value = key[1];
-        String accessToken = value.replace("\"", "");
+        String value1 = value.replace("\"", "");
+        String accessToken = value1.replace("\n", "");
         return accessToken;
     }
 
@@ -20,18 +21,28 @@ public class JsonParser {
         data = data.replace("{", "");
         String[] key = data.split(":");
         String value = key[1];
+
         String code = value.replace("\"", "");
         return code;
     }
 
     public static String getAuthMessage(String in) {
         String[] json = in.split(",");
-        String data = json[1];
+        String data = json[2];
         data = data.replace("{", "");
         String[] key = data.split(":");
-        String value = key[1];
+        String value = key[2];
         String message = value.replace("\"", "");
         return message;
     }
 
+    public static String getId(String in) {
+        String[] json = in.split(",");
+        String data = json[2];
+        data = data.replace("{", "");
+        String[] key = data.split(":");
+        String value = key[2];
+        String message = value.replace("\"", "");
+        return message;
+    }
 }

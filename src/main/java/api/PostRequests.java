@@ -1,3 +1,4 @@
+
 package api;
 
 import java.io.IOException;
@@ -13,21 +14,16 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class PostRequests {
 
-    private static String loginUrl = "http://restapi.adequateshop.com/api/authaccount/login";
-    private static String responseCode;
-    private static String responseBody;
+    private static final String loginUrl = "http://restapi.adequateshop.com/api/authaccount/login";
+    private static  final String createAccountUrl = "http://restapi.adequateshop.com/api/authaccount/Registration";
     private static String accessToken;
-    private static String authMessage;
+    private static String responseCode;
+    private  static String responseBody;
+    private   static String authMessage;
+    private static String userId;
 
     public static void main(String[] args) {
-        String email = "zdravko.zafirov+2@gmail.com";
-        String password = "123456";
-        try {
-            login(email, password);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        printAccessToken();
+
     }
 
     public static void login(String email, String password) throws IOException {
@@ -55,6 +51,7 @@ public class PostRequests {
             authMessage = json.getAuthMessage(responseBody);
             if (authCode.equals("0")) {
                 accessToken = json.getAccessToken(responseBody);
+                userId = json.getId(responseBody);
             }
         }
     }

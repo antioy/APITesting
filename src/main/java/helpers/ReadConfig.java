@@ -10,8 +10,7 @@ public class ReadConfig {
     public static void main(String[] args) {
         try {
             String sysPath = System.getProperty("user.dir");
-            // File myObj = new File("C:\\Users\\zdrav\\Projects\\JQA_homeworks\\ZornitsaStefanova\\java-api-demo\\src\\main\\java\\config\\config.json");
-            // System.out.println(sysPath);
+
             File myObj = new File(sysPath + "\\src\\main\\java\\config\\config.json");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
