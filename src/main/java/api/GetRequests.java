@@ -1,25 +1,25 @@
 package api;
 
+import helpers.JsonParser;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.
-        client.HttpClient;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 
 import java.io.IOException;
 import java.io.InputStream;
-
 public class GetRequests {
+    private static String urlString = "http://restapi.adequateshop.com/api/Users/";
 
-    private static String urlString = "http://restapi.adequateshop.com/api/users?page=1";
-    private static String accessToken;
     private static String responseCode;
     private static String responseBody;
+    private static  String authMessage;
 
     public static void main(String[] args) {
     }
+
     public static  void getUser(String endpoint,String accessToken) throws IOException {
         HttpGet getUsers = new HttpGet(urlString+endpoint);
         getUsers.setHeader("Authorization","Bearer" + accessToken);
@@ -35,9 +35,21 @@ public class GetRequests {
             responseBody = new ResponseReader().convertStreamToString(instream);
             instream.close();
         }
+        if (responseCode.contains("200") == true) {
+            JsonParser json = new JsonParser();
+            authMessage = json.getAuthMessage(responseBody);
 
-        System.out.println(responseCode);
-        System.out.println(responseBody);
+
+        }
 
     }
+
+    public static String getResponseCode () {
+        return responseCode;
+    }
+    public static String getAuthMessage () {
+        return authMessage;
+    }
+
+
 }
